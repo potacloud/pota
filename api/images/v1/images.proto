@@ -25,6 +25,44 @@ message CreateImageResponse {
     Image image = 2;
 }
 
+message ListImageRequest {}
+
+message ListImageResponse {
+    string message = 1;
+    repeated Image image = 2;
+}
+
+message DetailImageRequest {
+    string id = 1;
+}
+
+message DetailImageResponse {
+    string message = 1;
+    Image image = 2;
+}
+
+message UpdateImageRequest {
+    string id = 1;
+    string name = 2;
+}
+
+message UpdateImageResponse {
+    string message = 1;
+}
+
+message DeleteImageRequest {
+    string id = 1;
+}
+
+message DeleteImageResponse {
+    string message = 1;
+}
+
+
 service Images {
     rpc CreateImage(CreateImageRequest) returns (CreateImageResponse) {};
+    rpc ListImage(ListImageRequest) returns (ListImageResponse) {};
+    rpc DetailImage(DetailImageRequest) returns (DetailImageResponse) {};
+    rpc UpdateImage(UpdateImageRequest) returns (UpdateImageResponse) {};
+    rpc DeleteImage(DeleteImageRequest) returns (DeleteImageResponse) {};
 }

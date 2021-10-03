@@ -19,6 +19,10 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ImagesClient interface {
 	CreateImage(ctx context.Context, in *CreateImageRequest, opts ...grpc.CallOption) (*CreateImageResponse, error)
+	ListImage(ctx context.Context, in *ListImageRequest, opts ...grpc.CallOption) (*ListImageResponse, error)
+	DetailImage(ctx context.Context, in *DetailImageRequest, opts ...grpc.CallOption) (*DetailImageResponse, error)
+	UpdateImage(ctx context.Context, in *UpdateImageRequest, opts ...grpc.CallOption) (*UpdateImageResponse, error)
+	DeleteImage(ctx context.Context, in *DeleteImageRequest, opts ...grpc.CallOption) (*DeleteImageResponse, error)
 }
 
 type imagesClient struct {
@@ -38,11 +42,51 @@ func (c *imagesClient) CreateImage(ctx context.Context, in *CreateImageRequest, 
 	return out, nil
 }
 
+func (c *imagesClient) ListImage(ctx context.Context, in *ListImageRequest, opts ...grpc.CallOption) (*ListImageResponse, error) {
+	out := new(ListImageResponse)
+	err := c.cc.Invoke(ctx, "/images.Images/ListImage", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *imagesClient) DetailImage(ctx context.Context, in *DetailImageRequest, opts ...grpc.CallOption) (*DetailImageResponse, error) {
+	out := new(DetailImageResponse)
+	err := c.cc.Invoke(ctx, "/images.Images/DetailImage", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *imagesClient) UpdateImage(ctx context.Context, in *UpdateImageRequest, opts ...grpc.CallOption) (*UpdateImageResponse, error) {
+	out := new(UpdateImageResponse)
+	err := c.cc.Invoke(ctx, "/images.Images/UpdateImage", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *imagesClient) DeleteImage(ctx context.Context, in *DeleteImageRequest, opts ...grpc.CallOption) (*DeleteImageResponse, error) {
+	out := new(DeleteImageResponse)
+	err := c.cc.Invoke(ctx, "/images.Images/DeleteImage", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ImagesServer is the server API for Images service.
 // All implementations must embed UnimplementedImagesServer
 // for forward compatibility
 type ImagesServer interface {
 	CreateImage(context.Context, *CreateImageRequest) (*CreateImageResponse, error)
+	ListImage(context.Context, *ListImageRequest) (*ListImageResponse, error)
+	DetailImage(context.Context, *DetailImageRequest) (*DetailImageResponse, error)
+	UpdateImage(context.Context, *UpdateImageRequest) (*UpdateImageResponse, error)
+	DeleteImage(context.Context, *DeleteImageRequest) (*DeleteImageResponse, error)
 	mustEmbedUnimplementedImagesServer()
 }
 
@@ -52,6 +96,18 @@ type UnimplementedImagesServer struct {
 
 func (UnimplementedImagesServer) CreateImage(context.Context, *CreateImageRequest) (*CreateImageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateImage not implemented")
+}
+func (UnimplementedImagesServer) ListImage(context.Context, *ListImageRequest) (*ListImageResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListImage not implemented")
+}
+func (UnimplementedImagesServer) DetailImage(context.Context, *DetailImageRequest) (*DetailImageResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DetailImage not implemented")
+}
+func (UnimplementedImagesServer) UpdateImage(context.Context, *UpdateImageRequest) (*UpdateImageResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateImage not implemented")
+}
+func (UnimplementedImagesServer) DeleteImage(context.Context, *DeleteImageRequest) (*DeleteImageResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteImage not implemented")
 }
 func (UnimplementedImagesServer) mustEmbedUnimplementedImagesServer() {}
 
@@ -84,6 +140,78 @@ func _Images_CreateImage_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Images_ListImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListImageRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ImagesServer).ListImage(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/images.Images/ListImage",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ImagesServer).ListImage(ctx, req.(*ListImageRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Images_DetailImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DetailImageRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ImagesServer).DetailImage(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/images.Images/DetailImage",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ImagesServer).DetailImage(ctx, req.(*DetailImageRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Images_UpdateImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateImageRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ImagesServer).UpdateImage(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/images.Images/UpdateImage",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ImagesServer).UpdateImage(ctx, req.(*UpdateImageRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Images_DeleteImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteImageRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ImagesServer).DeleteImage(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/images.Images/DeleteImage",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ImagesServer).DeleteImage(ctx, req.(*DeleteImageRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Images_ServiceDesc is the grpc.ServiceDesc for Images service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -94,6 +222,22 @@ var Images_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateImage",
 			Handler:    _Images_CreateImage_Handler,
+		},
+		{
+			MethodName: "ListImage",
+			Handler:    _Images_ListImage_Handler,
+		},
+		{
+			MethodName: "DetailImage",
+			Handler:    _Images_DetailImage_Handler,
+		},
+		{
+			MethodName: "UpdateImage",
+			Handler:    _Images_UpdateImage_Handler,
+		},
+		{
+			MethodName: "DeleteImage",
+			Handler:    _Images_DeleteImage_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

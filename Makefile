@@ -11,3 +11,8 @@ gen-images-v1:
 	protoc -I=api/images/v1 --go_out=api/images/v1 --go_opt=module=github.com/potacloud/pota/api/images/v1 \
 		--go-grpc_out=api/images/v1 --go-grpc_opt module=github.com/potacloud/pota/api/images/v1 \
 		$(shell ls api/images/v1/*.proto)
+
+gen-networks-v1:
+	protoc -I=api/networks/v1 --go_out=api/networks/v1 --go_opt=module=github.com/potacloud/pota/api/networks/v1 \
+		--go-grpc_out=api/networks/v1 --go-grpc_opt module=github.com/potacloud/pota/api/networks/v1 \
+		$(shell ls api/networks/v1/*.proto)

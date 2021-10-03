@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package networks;
+
+option go_package = "github.com/potacloud/pota/api/networks/v1";
+import "google/protobuf/timestamp.proto";
+
+message Network {
+    string id = 1;
+    string name = 2;
+    string bridge = 3;
+    string cidr = 4;
+    string gateway = 5;
+    uint32 mtu = 6;
+    bool snat = 7;
+    bool generated = 8;
+
+    google.protobuf.Timestamp created_at = 9;
+    google.protobuf.Timestamp updated_at = 10;
+}
+
+message CreateNetworkRequest {
+    string name = 1;
+}
+
+message CreateNetworkResponse {
+    string message = 1;
+    Network network = 2;
+}
+
+message ListNetworkRequest {}
+ 
+message ListNetworkResponse {
+    string message = 1;
+    repeated Network network = 2;
+}
+ 
+message DetailNetworkRequest {
+    string id = 1;
+}
+ 
+message DetailNetworkResponse {
+    string message = 1;
+    Network network = 2;
+}
+ 
+message UpdateNetworkRequest {
+    string id = 1;
+    string name = 2;
+    uint32 mtu = 3;
+    bool snat = 4;
+    string gateway = 5;
+}
+
+message UpdateNetworkResponse {
+    string message = 1;
+}
+ 
+message DeleteNetworkRequest {
+    string id = 1;
+}
+
+message DeleteNetworkResponse {
+    string message = 1;
+}
+ 
+
+service Networks {
+    rpc CreateNetwork(CreateNetworkRequest) returns (CreateNetworkResponse) {};
+    rpc ListNetwork(ListNetworkRequest) returns (ListNetworkResponse) {};
+    rpc DetailNetwork(DetailNetworkRequest) returns (DetailNetworkResponse) {};
+    rpc UpdateNetwork(UpdateNetworkRequest) returns (UpdateNetworkResponse) {};
+    rpc DeleteNetwork(DeleteNetworkRequest) returns (DeleteNetworkResponse) {};
+}
